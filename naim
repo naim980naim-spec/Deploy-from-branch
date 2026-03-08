@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Naim Online Shop</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      color: #222;
+    }
+    header {
+      background: linear-gradient(135deg, #0d6efd, #0a58ca);
+      color: white;
+      padding: 18px 12px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 30px;
+    }
+    header p {
+      margin: 6px 0 0;
+      font-size: 14px;
+      opacity: 0.95;
+    }
+    nav {
+      background: #ffffff;
+      padding: 12px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #e5e7eb;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    nav .brand {
+      font-weight: bold;
+      font-size: 20px;
+      color: #0d6efd;
+    }
+    nav .cart-box {
+      background: #0d6efd;
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 14px;
+    }
+    .hero {
+      padding: 28px 18px;
+      text-align: center;
+      background: #eef4ff;
+    }
+    .hero h2 {
+      margin: 0 0 10px;
+      font-size: 34px;
+    }
+    .hero p {
+      margin: 0;
+      color: #555;
+      font-size: 16px;
+    }
+    .section-title {
+      text-align: center;
+      margin: 28px 0 10px;
+      font-size: 28px;
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .product {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .product:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+    }
+    .product img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .product-content {
+      padding: 16px;
+      text-align: center;
+    }
+    .product h3 {
+      margin: 0 0 8px;
+      font-size: 20px;
+    }
+    .product p {
+      margin: 0 0 10px;
+      color: #666;
+      font-size: 14px;
+      min-height: 36px;
+    }
+    .price {
+      color: #dc3545;
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    button {
+      border: none;
+      cursor: pointer;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 14px;
+      transition: 0.2s;
+    }
+    .cart-btn {
+      background: #198754;
+      color: #fff;
+    }
+    .order-btn {
+      background: #0d6efd;
+      color: #fff;
+    }
+    .cart-btn:hover, .order-btn:hover, .confirm-btn:hover {
+      opacity: 0.9;
+    }
+    .checkout {
+      max-width: 700px;
+      margin: 30px auto 40px;
+      background: #fff;
+      padding: 22px;
+      border-radius: 16px;
+      box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+      display: none;
+    }
+    .checkout h2 {
+      margin-top: 0;
+      text-align: center;
+    }
+    .summary {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 16px;
+      line-height: 1.8;
+    }
+    .checkout label {
+      display: block;
+      margin: 10px 0 6px;
+      font-weight: bold;
+    }
+    .checkout input,
+    .checkout select,
+    .checkout textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 15px;
+    }
+    .checkout textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+    .confirm-btn {
+      width: 100%;
+      margin-top: 16px;
+      background: #198754;
+      color: #fff;
+      font-size: 16px;
+      padding: 12px;
+    }
+    .payment-note {
+      margin-top: 12px;
+      background: #fff8e1;
+      border-left: 4px solid #ffc107;
+      padding: 12px;
+      border-radius: 8px;
+      color: #6b5500;
+      font-size: 14px;
+    }
+    footer {
+      background: #111827;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      margin-top: 30px;
+    }
+    @media (max-width: 600px) {
+      .hero h2 { font-size: 26px; }
+      header h1 { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🛒 Naim Online Shop</h1>
+    <p>আপনার পছন্দের সব প্রোডাক্ট এক জায়গায়</p>
+  </header>
+
+  <nav>
+    <div class="brand">Naim Shop</div>
+    <div class="cart-box">কার্ট: <span id="cartCount">0</span></div>
+  </nav>
+
+  <section class="hero">
+    <h2>নতুন কালেকশন</h2>
+    <p>জামা, ঘড়ি, জুতা এবং আরও অনেক কিছু</p>
+  </section>
+
+  <h2 class="section-title">আমাদের প্রোডাক্ট</h2>
+  <p style="text-align:center; margin:0 20px 10px; color:#555;">নিচের Admin Panel থেকে নতুন প্রোডাক্টের নাম, দাম, ছবি এবং বর্ণনা দিয়ে সহজেই নতুন প্রোডাক্ট যোগ করতে পারবেন।</p>
+
+  <section class="products" id="productList">
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80" alt="T-Shirt" />
+      <div class="product-content">
+        <h3>T-Shirt</h3>
+        <p>স্টাইলিশ কটন টি-শার্ট</p>
+        <div class="price">৳500</div>
+        <div class="btn-group">
+          <button class="cart-btn" onclick="addToCart('T-Shirt', 500)">কার্টে যোগ করুন</button>
+          <button class="order-btn" onclick="orderNow('T-Shirt', 500)">অর্ডার করুন</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=800&q=80" alt="Watch" />
+      <div class="product-content">
+        <h3>Watch</h3>
+        <p>প্রিমিয়াম হাতঘড়ি</p>
+        <div class="price">৳1200</div>
+        <div class="btn-group">
+          <button class="cart-btn" onclick="addToCart('Watch', 1200)">কার্টে যোগ করুন</button>
+          <button class="order-btn" onclick="orderNow('Watch', 1200)">অর্ডার করুন</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80" alt="Shoes" />
+      <div class="product-content">
+        <h3>Shoes</h3>
+        <p>আরামদায়ক ফ্যাশনেবল জুতা</p>
+        <div class="price">৳2000</div>
+        <div class="btn-group">
+          <button class="cart-btn" onclick="addToCart('Shoes', 2000)">কার্টে যোগ করুন</button>
+          <button class="order-btn" onclick="orderNow('Shoes', 2000)">অর্ডার করুন</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=800&q=80" alt="Bag" />
+      <div class="product-content">
+        <h3>Bag</h3>
+        <p>ট্রেন্ডি ব্যাগ</p>
+        <div class="price">৳950</div>
+        <div class="btn-group">
+          <button class="cart-btn" onclick="addToCart('Bag', 950)">কার্টে যোগ করুন</button>
+          <button class="order-btn" onclick="orderNow('Bag', 950)">অর্ডার করুন</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="checkout" id="checkoutBox">
+    <h2>Checkout Form</h2>
+    <div class="summary" id="orderSummary">
+      প্রোডাক্ট: - <br />
+      দাম: -
+    </div>
+
+    <label for="name">আপনার নাম</label>
+    <input type="text" id="name" placeholder="আপনার নাম লিখুন" />
+
+    <label for="phone">মোবাইল নাম্বার</label>
+    <input type="text" id="phone" placeholder="01XXXXXXXXX" />
+
+    <label for="address">ঠিকানা</label>
+    <textarea id="address" placeholder="আপনার সম্পূর্ণ ঠিকানা লিখুন"></textarea>
+
+    <label for="payment">পেমেন্ট মেথড</label>
+    <select id="payment" onchange="updatePaymentNote()">
+      <option value="">পেমেন্ট সিলেক্ট করুন</option>
+      <option value="bKash">bKash</option>
+      <option value="Nagad">Nagad</option>
+      <option value="Cash on Delivery">Cash on Delivery</option>
+    </select>
+
+    <div class="payment-note" id="paymentNote" style="display:none;"></div>
+
+    <button class="confirm-btn" onclick="confirmOrder()">Confirm Order</button>
+  </section>
+
+  <footer>
+    © 2026 Naim Online Shop | Developed for Demo
+  </footer>
+
+  <script>
+    let cartCount = 0;
+    let selectedProduct = '';
+    let selectedPrice = 0;
+
+    function addToCart(productName, price) {
+      cartCount++;
+      document.getElementById('cartCount').innerText = cartCount;
+      document.getElementById('adminCartCount').innerText = cartCount;
+      alert(productName + ' কার্টে যোগ হয়েছে।');
+    }
+
+    function orderNow(productName, price) {
+      selectedProduct = productName;
+      selectedPrice = price;
+      document.getElementById('checkoutBox').style.display = 'block';
+      document.getElementById('orderSummary').innerHTML =
+        'প্রোডাক্ট: <b>' + productName + '</b><br>দাম: <b>৳' + price + '</b>';
+      window.scrollTo({ top: document.getElementById('checkoutBox').offsetTop - 20, behavior: 'smooth' });
+    }
+
+    function updatePaymentNote() {
+      const method = document.getElementById('payment').value;
+      const note = document.getElementById('paymentNote');
+
+      if (!method) {
+        note.style.display = 'none';
+        note.innerHTML = '';
+        return;
+      }
+
+      note.style.display = 'block';
+
+      if (method === 'bKash') {
+        note.innerHTML = 'bKash নাম্বার: <b>01XXXXXXXXX</b><br>পেমেন্ট করার পরে ট্রানজেকশন আইডি নোট করে রাখুন।';
+      } else if (method === 'Nagad') {
+        note.innerHTML = 'Nagad নাম্বার: <b>01XXXXXXXXX</b><br>পেমেন্ট সম্পন্ন হলে কনফার্ম করুন।';
+      } else {
+        note.innerHTML = 'Cash on Delivery সিলেক্ট করা হয়েছে। প্রোডাক্ট হাতে পেয়ে পেমেন্ট করবেন।';
+      }
+    }
+
+    function confirmOrder() {
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const address = document.getElementById('address').value.trim();
+      const payment = document.getElementById('payment').value;
+
+      if (!selectedProduct) {
+        alert('আগে একটি প্রোডাক্ট সিলেক্ট করুন।');
+        return;
+      }
+      if (!name || !phone || !address || !payment) {
+        alert('সব তথ্য পূরণ করুন।');
+        return;
+      }
+
+      document.getElementById('lastOrder').innerText = selectedProduct + ' - ' + name;
+
+      alert(
+        'অর্ডার কনফার্ম হয়েছে!
+
+' +
+        'নাম: ' + name + '
+' +
+        'ফোন: ' + phone + '
+' +
+        'ঠিকানা: ' + address + '
+' +
+        'প্রোডাক্ট: ' + selectedProduct + '
+' +
+        'দাম: ৳' + selectedPrice + '
+' +
+        'পেমেন্ট: ' + payment
+      );
+    }
+  </script>
+  <section class="checkout" id="authBox" style="display:block; max-width:700px; margin:0 auto 30px; background:#fff; padding:22px; border-radius:16px; box-shadow:0 8px 22px rgba(0,0,0,0.08);">
+    <h2>নতুন আইডি খুলুন / Login</h2>
+
+    <label for="userName">নাম</label>
+    <input type="text" id="userName" placeholder="আপনার নাম লিখুন" />
+
+    <label for="userPhone">মোবাইল নাম্বার</label>
+    <input type="text" id="userPhone" placeholder="01XXXXXXXXX" />
+
+    <label for="userPassword">পাসওয়ার্ড</label>
+    <input type="password" id="userPassword" placeholder="পাসওয়ার্ড লিখুন" />
+
+    <div class="btn-group" style="margin-top:14px;">
+      <button class="order-btn" onclick="loginUser()">Login</button>
+      <button class="cart-btn" onclick="registerUser()">নতুন আইডি খুলুন</button>
+    </div>
+  </section>
+
+  <section class="checkout" id="adminPanel" style="display:block; max-width:900px; margin:0 auto 40px;">
+    <h2>Admin Panel - নতুন প্রোডাক্ট যোগ করুন</h2>
+    <div class="summary">
+      মোট কার্ট আইটেম: <b id="adminCartCount">0</b><br>
+      সর্বশেষ অর্ডার: <b id="lastOrder">কোন অর্ডার নেই</b>
+    </div>
+
+    <label for="newProductName">নতুন প্রোডাক্ট নাম</label>
+    <input type="text" id="newProductName" placeholder="যেমন: Sunglass" />
+
+    <label for="newProductPrice">দাম</label>
+    <input type="number" id="newProductPrice" placeholder="যেমন: 800" />
+
+    <label for="newProductImage">প্রোডাক্ট ছবি আপলোড</label>
+    <input type="file" id="newProductImage" accept="image/*" />
+
+    <label for="newProductDesc">বিবরণ</label>
+    <input type="text" id="newProductDesc" placeholder="ছোট একটি বর্ণনা লিখুন" />
+
+    <button class="confirm-btn" onclick="addNewProduct()">নতুন প্রোডাক্ট যোগ করুন</button>
+  </section>
+
+  <script>
+
+    function loginUser() {
+      const phone = document.getElementById('userPhone').value.trim();
+      const password = document.getElementById('userPassword').value.trim();
+
+      const users = JSON.parse(localStorage.getItem('shop_users') || '[]');
+
+      const user = users.find(u => u.phone === phone && u.password === password);
+
+      if (!user) {
+        alert('এই নাম্বারে আইডি পাওয়া যায়নি বা পাসওয়ার্ড ভুল। আগে নতুন আইডি খুলুন।');
+        return;
+      }
+
+      localStorage.setItem('logged_user', JSON.stringify(user));
+      alert('লগইন সফল হয়েছে। স্বাগতম ' + user.name);
+    }
+
+    function registerUser() {
+      const name = document.getElementById('userName').value.trim();
+      const phone = document.getElementById('userPhone').value.trim();
+      const password = document.getElementById('userPassword').value.trim();
+
+      if (!name || !phone || !password) {
+        alert('নাম + মোবাইল নাম্বার + পাসওয়ার্ড দিন।');
+        return;
+      }
+
+      const users = JSON.parse(localStorage.getItem('shop_users') || '[]');
+
+      const exists = users.find(u => u.phone === phone);
+
+      if (exists) {
+        alert('এই মোবাইল নাম্বার দিয়ে আগেই একটি আইডি খোলা আছে।');
+        return;
+      }
+
+      users.push({ name, phone, password });
+
+      localStorage.setItem('shop_users', JSON.stringify(users));
+
+      alert('নতুন আইডি সফলভাবে খোলা হয়েছে। এখন লগইন করুন।');
+    }
+
+    function addNewProduct() {
+      const name = document.getElementById('newProductName').value.trim();
+      const price = document.getElementById('newProductPrice').value.trim();
+      const imageFile = document.getElementById('newProductImage').files[0];
+      const desc = document.getElementById('newProductDesc').value.trim();
+
+      if (!name || !price || !imageFile || !desc) {
+        alert('নতুন প্রোডাক্টের সব তথ্য দিন।');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const image = e.target.result;
+
+        const productList = document.getElementById('productList');
+        const productCard = document.createElement('div');
+        productCard.className = 'product';
+        productCard.innerHTML = `
+          <img src="${image}" alt="${name}" />
+          <div class="product-content">
+            <h3>${name}</h3>
+            <p>${desc}</p>
+            <div class="price">৳${price}</div>
+            <div class="btn-group">
+              <button class="cart-btn" onclick="addToCart('${name}', ${price})">কার্টে যোগ করুন</button>
+              <button class="order-btn" onclick="orderNow('${name}', ${price})">অর্ডার করুন</button>
+            </div>
+          </div>
+        `;
+
+        productList.appendChild(productCard);
+
+        document.getElementById('newProductName').value = '';
+        document.getElementById('newProductPrice').value = '';
+        document.getElementById('newProductImage').value = '';
+        document.getElementById('newProductDesc').value = '';
+
+        alert('নতুন প্রোডাক্ট যোগ হয়েছে।');
+      };
+
+      reader.readAsDataURL(imageFile);
+    }
+
+  </script>
+</body>
+</html>
